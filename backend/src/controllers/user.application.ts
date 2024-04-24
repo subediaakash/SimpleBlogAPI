@@ -12,10 +12,19 @@ export const getProfile = async (req: Request, res: Response) => {
       where: {
         email: email,
       },
+      include: {
+        following: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
     const username = currentUser?.name;
-    return res.status(200).json({ username, email });
+    const following = currentUser?.following;
+
+    return res.status(200).json({ username, email, following });
   } catch (err) {
     return res.json({ Message: "Error occured", Error: err });
   }
@@ -78,6 +87,8 @@ export const DeletePost = async (req: Request, res: Response) => {
 export const FollowUser = async (req: Request, res: Response) => {
   const userToBeFollowedId = parseInt(req.params.userId);
   const requestingUserId = res.locals.user.id;
+  console.log(userToBeFollowedId);
+  console.log(requestingUserId);
 
   try {
     const updatedUser = await prisma.user.update({

@@ -4,6 +4,7 @@ import { verifyUser } from "../middleware/auth.middleware";
 import {
   CreatePost,
   DeletePost,
+  FollowUser,
   getProfile,
   UpdatePost,
 } from "../controllers/user.application";
@@ -22,3 +23,4 @@ userRouter.put("/post:postId", verifyUser, UpdatePost);
 userRouter.delete("/post:postId", verifyUser, DeletePost);
 userRouter.get("/posts", verifyUser, getPostsByRandomUsers);
 userRouter.get("/others", verifyUser, getUsers);
+userRouter.post("/follow/:userId", verifyUser, FollowUser);
