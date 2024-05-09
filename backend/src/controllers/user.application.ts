@@ -46,7 +46,10 @@ export const CreatePost = async (req: Request, res: Response) => {
     });
     return res.status(200).json({ msg: "Post Created Successfully", newPost });
   } catch (error) {
-    return res.send("Error occured while creating the post");
+    return res.json({
+      msg: "Error occured while creating the post",
+      err: error,
+    });
   }
 };
 
@@ -66,7 +69,7 @@ export const UpdatePost = async (req: Request, res: Response) => {
       .status(200)
       .json({ msg: "Post updated successfully", updatedPost: updatePost });
   } catch (err) {
-    return res.send("Error occured during updation of post");
+    return res.json({ msg: "Error occured during updation of post", err: err });
   }
 };
 
