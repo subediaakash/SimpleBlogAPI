@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { signInSchema, userSchema } from "../zod";
 import { PrismaClient } from "@prisma/client";
-import { Iuser } from "../types/Iuser";
+import { IUser } from "../types/Iuser";
 import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
@@ -15,7 +15,7 @@ export const Signup = async (req: Request, res: Response) => {
     if (!parsedInput.success) {
       return res.status(400).json(parsedInput.error);
     }
-    const newUser: Iuser = await prisma.user.create({
+    const newUser: IUser = await prisma.user.create({
       data: {
         email: inputBody.email,
         password: inputBody.password,
@@ -26,6 +26,7 @@ export const Signup = async (req: Request, res: Response) => {
     const token = jwt.sign(
       {
         email: newUser.email,
+        id: newUser.id,
       },
       process.env.JWT_SECRET!
     );
@@ -53,7 +54,7 @@ export const Signin = async (req: Request, res: Response) => {
     },
   });
   if (!user) {
-    return res.status(200).json("User not found ");
+    return res.status(404).json("User not found ");
   }
   const token = jwt.sign(
     {
@@ -62,7 +63,7 @@ export const Signin = async (req: Request, res: Response) => {
     },
     process.env.JWT_SECRET!
   );
-  return res.status(400).json({
+  return res.status(200).json({
     token: token,
     email: user.email,
   });

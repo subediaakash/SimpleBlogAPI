@@ -37,6 +37,8 @@ export const CreatePost = async (req: Request, res: Response) => {
     return res.status(400).json("Zod validation failed");
   }
   try {
+    console.log(res.locals.user.id);
+
     const newPost = await prisma.post.create({
       data: {
         title: post.title,
@@ -46,7 +48,7 @@ export const CreatePost = async (req: Request, res: Response) => {
     });
     return res.status(200).json({ msg: "Post Created Successfully", newPost });
   } catch (error) {
-    return res.json({
+    return res.status(400).json({
       msg: "Error occured while creating the post",
       err: error,
     });
