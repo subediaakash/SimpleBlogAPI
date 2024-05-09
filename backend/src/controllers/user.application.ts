@@ -113,3 +113,17 @@ export const FollowUser = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const myPosts = async (req: Request, res: Response) => {
+  try {
+    const userId = res.locals.user.id;
+    const myPosts = await prisma.post.findMany({
+      where: {
+        creatorId: userId,
+      },
+    });
+    return res.status(200).json(myPosts);
+  } catch (err) {
+    return res.status(404).json({ msg: "Posts not found", err: err });
+  }
+};

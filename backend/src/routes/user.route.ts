@@ -6,6 +6,7 @@ import {
   DeletePost,
   FollowUser,
   getProfile,
+  myPosts,
   UpdatePost,
 } from "../controllers/user.application";
 import {
@@ -19,6 +20,7 @@ userRouter.post("/signup", Signup);
 userRouter.post("/signin", Signin);
 userRouter.get("/users", verifyUser, getProfile);
 userRouter.post("/new", verifyUser, CreatePost);
+userRouter.get("/mypost", verifyUser, myPosts);
 userRouter.put("/post/:postId", verifyUser, UpdatePost);
 userRouter.delete("/post/:postId", verifyUser, DeletePost);
 userRouter.get("/posts", verifyUser, getPostsByRandomUsers);
