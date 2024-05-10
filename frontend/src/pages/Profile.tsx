@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchUser } from "../utils/fetchUsersPost";
 import GetPost from "../components/GetPost";
 import FollowingUserPosts from "../components/FollowingUserPosts";
+import Navbar from "../components/Navbar";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
@@ -15,8 +16,9 @@ const Profile = () => {
   }, []);
   return (
     <div>
+      <Navbar />
       <GetPost props={posts} />
-      <FollowingUserPosts />
+      {/* <FollowingUserPosts /> */}
     </div>
   );
 };
