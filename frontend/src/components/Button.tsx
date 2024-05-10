@@ -1,12 +1,15 @@
 interface IButtonProps {
   onSubmit: () => void;
   value: string;
+  className?: string;
 }
 
-const Button = ({ onSubmit, value }: IButtonProps) => {
+const Button = ({ onSubmit, value, className }: IButtonProps) => {
   return (
     <div>
-      <button onClick={onSubmit}>{value}</button>
+      <button className={className} onClick={onSubmit}>
+        {value}{" "}
+      </button>
     </div>
   );
 };
