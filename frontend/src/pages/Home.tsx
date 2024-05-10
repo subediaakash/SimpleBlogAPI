@@ -4,9 +4,13 @@ const Home = () => {
   return (
     <div>
       <div>
+        Hello platform where you can add posts and share your thoughts around
+        the world
+      </div>
+      <div>
         <Addpost />
       </div>
-      <div>this is another div</div>
+      <div></div>
     </div>
   );
 };
