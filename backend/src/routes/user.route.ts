@@ -5,6 +5,7 @@ import {
   CreatePost,
   DeletePost,
   FollowUser,
+  getPostsByFollowers,
   getProfile,
   myPosts,
   UpdatePost,
@@ -25,4 +26,5 @@ userRouter.put("/post/:postId", verifyUser, UpdatePost);
 userRouter.delete("/post/:postId", verifyUser, DeletePost);
 userRouter.get("/posts", verifyUser, getPostsByRandomUsers);
 userRouter.get("/others", verifyUser, getUsers);
+userRouter.get("/followingposts", verifyUser, getPostsByFollowers);
 userRouter.post("/follow/:userId", verifyUser, FollowUser);

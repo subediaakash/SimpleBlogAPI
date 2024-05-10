@@ -1,16 +1,16 @@
-import Addpost from "../components/Addpost";
+import Navbar from "../components/Navbar";
+import OtherUsersPost from "../components/OtherUsersPost";
 
 const Home = () => {
   return (
     <div>
-      <div>
-        Hello platform where you can add posts and share your thoughts around
-        the world
+      <Navbar />
+      <div className="flex justify-center flex-col items-center">
+        <div className="text-center">Online Blog Posting Application</div>
+        <div>
+          <OtherUsersPost />
+        </div>
       </div>
-      <div>
-        <Addpost />
-      </div>
-      <div></div>
     </div>
   );
 };

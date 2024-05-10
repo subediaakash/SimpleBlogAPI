@@ -1,7 +1,7 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { fetchUser } from "../utils/fetchUsersPost";
 import GetPost from "../components/GetPost";
+import FollowingUserPosts from "../components/FollowingUserPosts";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
@@ -16,6 +16,7 @@ const Profile = () => {
   return (
     <div>
       <GetPost props={posts} />
+      <FollowingUserPosts />
     </div>
   );
 };

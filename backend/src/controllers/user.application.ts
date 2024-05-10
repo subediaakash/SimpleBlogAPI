@@ -127,3 +127,32 @@ export const myPosts = async (req: Request, res: Response) => {
     return res.status(404).json({ msg: "Posts not found", err: err });
   }
 };
+
+export const getPostsByFollowers = async (req: Request, res: Response) => {
+  try {
+    const userId = res.locals.user.id;
+    const userFollowers = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        following: true,
+      },
+    });
+
+    const followedUserIds = userFollowers?.following.map((user) => user.id);
+
+    if (!followedUserIds || followedUserIds.length === 0) {
+      return res.status(404).json({ message: "No followed users found" });
+    }
+
+    const posts = await prisma.post.findMany({
+      where: {
+        creatorId: { in: followedUserIds },
+      },
+    });
+
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching posts by followers:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
